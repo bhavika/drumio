@@ -9,11 +9,11 @@ lint:
 
 install:
 	source venv/bin/activate \
-	pip install .
+	pip install -e ".[testing]"
 
 test:
 	source venv/bin/activate \
-	pip install . \
+	pip install -e ".[testing]" \
 	pytest -vv tests/
 
 run:
