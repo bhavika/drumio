@@ -7,7 +7,6 @@ from pyramid.view import view_config
 
 @view_config(route_name="store_track", renderer="../templates/404.mako")
 def store_track(request):
-    print(request)
     filename = request.POST["mp3"].filename
     track_data = request.POST["mp3"].file
 
