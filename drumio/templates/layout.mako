@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="pyramid web application">
     <meta name="author" content="Pylons Project">
-    <link rel="shortcut icon" href="${request.static_url('drumio:static/pyramid-16x16.png')}">
 
     <title>Drumio</title>
 
@@ -29,7 +28,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-2">
-            <img class="logo img-responsive" src="${request.static_url('drumio:static/pyramid.png') }" alt="pyramid web framework">
+            <img class="logo img-responsive">
           </div>
           <div class="col-md-10">
             ${ next.body() }

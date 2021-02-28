@@ -16,6 +16,7 @@ def store_track(request):
     track_data.seek(0)
     with open(temp_file_path, "wb") as output_path:
         shutil.copyfileobj(track_data, output_path)
+
     os.rename(temp_file_path, file_location)
 
     return Response("OK")
