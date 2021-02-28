@@ -11,11 +11,11 @@ class ViewTests(unittest.TestCase):
         testing.tearDown()
 
     def test_my_view(self):
-        from .views.default import process_song_view
+        from drumio.views.default import process_song_view
 
         request = testing.DummyRequest()
         info = process_song_view(request)
-        self.assertEqual(info["project"], "drumio")
+        self.assertEqual(info["ui"], "process")
 
 
 class FunctionalTests(unittest.TestCase):
@@ -29,4 +29,4 @@ class FunctionalTests(unittest.TestCase):
 
     def test_root(self):
         res = self.testapp.get("/", status=200)
-        self.assertTrue(b"Pyramid" in res.body)
+        self.assertTrue(b"Upload" in res.body)
