@@ -1,0 +1,3 @@
+[run]
+source = drumio
+omit = drumio/test*
