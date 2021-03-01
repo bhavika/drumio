@@ -5,7 +5,7 @@
   <form action="/store_track" method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <div class="form-group">
       <label>Upload a track</label> <br/>
-      <input type="file" class="form-control-file" id="mp3" name="mp3"> <br/>
+      <input type="file" class="form-control-file" id="track" name="track"> <br/>
       <button type="submit" class="btn btn-primary mb-2">Upload</button>
     </div>
   </form>
