@@ -5,10 +5,10 @@ from pyramid.response import Response
 from pyramid.view import view_config
 
 
-@view_config(route_name="store_track", renderer="../templates/404.mako")
+@view_config(route_name="store_track", renderer="../templates/process.mako")
 def store_track(request):
-    filename = request.POST["mp3"].filename
-    track_data = request.POST["mp3"].file
+    filename = request.POST["track"].filename
+    track_data = request.POST["track"].file
 
     # we should not use '/tmp' in production and protect against symlink attacks here
     file_location = os.path.join("/tmp", "{}.mp3".format(uuid.uuid4()))
