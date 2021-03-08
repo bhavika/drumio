@@ -33,14 +33,26 @@ resource "aws_iam_role" "beanstalk_service" {
 EOF
 }
 
+resource "aws_iam_instance_profile" "ec2" {
+  name = "default-eb-ec2"
+  role = aws_iam_role.beanstalk_service.name
+}
+
+
 resource "aws_s3_bucket" "default" {
-  bucket = "drumio-source.applicationversion.bucket"
+  bucket = "drumio-source"
+  tags = {
+    ProjectName = "drumio"
+  }
 }
 
 resource "aws_s3_bucket_object" "default" {
   bucket = aws_s3_bucket.default.id
   key = "beanstalk/drumio-${var.app_version}.zip"
   source = "drumio-${var.app_version}.zip"
+  tags = {
+    ProjectName = "drumio"
+  }
 }
 
 resource "aws_elastic_beanstalk_application" "drumio" {
@@ -63,6 +75,13 @@ resource "aws_elastic_beanstalk_environment" "drumio-env" {
   tags = {
     ProjectName = "drumio"
   }
+
+  setting {
+    name = "IamInstanceProfile"
+    namespace = "aws:autoscaling:launchconfiguration"
+    value = aws_iam_instance_profile.ec2.name
+  }
+
 }
 
 resource "aws_elastic_beanstalk_application_version" "default" {
@@ -71,4 +90,7 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   key = aws_s3_bucket_object.default.id
   name = "drumio-${var.app_version}"
   description = "Application version for drumio"
+  tags = {
+    ProjectName = "drumio"
+  }
 }
