@@ -33,6 +33,16 @@ resource "aws_iam_role" "beanstalk_service" {
 EOF
 }
 
+resource "aws_s3_bucket" "default" {
+  bucket = "drumio-source.applicationversion.bucket"
+}
+
+resource "aws_s3_bucket_object" "default" {
+  bucket = aws_s3_bucket.default.id
+  key = "beanstalk/drumio-${var.app_version}.zip"
+  source = "drumio-${var.app_version}.zip"
+}
+
 resource "aws_elastic_beanstalk_application" "drumio" {
   name = "drumio-${var.env}"
   description = "Source separation in your browser"
@@ -53,4 +63,12 @@ resource "aws_elastic_beanstalk_environment" "drumio-env" {
   tags = {
     ProjectName = "drumio"
   }
+}
+
+resource "aws_elastic_beanstalk_application_version" "default" {
+  application = "drumio"
+  bucket = aws_s3_bucket.default.id
+  key = aws_s3_bucket_object.default.id
+  name = "drumio-${var.app_version}"
+  description = "Application version for drumio"
 }
